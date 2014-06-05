@@ -31,9 +31,6 @@ default['openstack']['dashboard']['debug'] = false
 # The Keystone role used by default for users logging into the dashboard
 default['openstack']['dashboard']['keystone_default_role'] = '_member_'
 
-# This is the name of the Chef role that will install the Keystone Service API
-default['openstack']['dashboard']['keystone_service_chef_role'] = 'keystone'
-
 default['openstack']['dashboard']['server_hostname'] = nil
 default['openstack']['dashboard']['use_ssl'] = true
 default['openstack']['dashboard']['ssl']['cert_url'] = nil
