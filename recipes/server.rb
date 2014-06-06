@@ -59,19 +59,10 @@ execute 'set-selinux-enforcing' do
 end
 
 identity_admin_endpoint = endpoint 'identity-admin'
-auth_admin_uri = ::URI.decode identity_admin_endpoint.to_s
-identity_endpoint = endpoint 'identity-api'
-auth_uri = ::URI.decode identity_endpoint.to_s
+identity_endpoint = endpoint 'identity-api-internal'
 
-case node['openstack']['dashboard']['identity_api_version']
-when 2.0
-  auth_version = 'v2.0'
-when 3
-  auth_version = 'v3.0'
-end
-
-auth_admin_uri = auth_uri_transform auth_admin_uri, auth_version
-auth_uri = auth_uri_transform auth_uri, auth_version
+auth_uri = auth_uri_transform identity_endpoint.to_s, node['openstack']['compute']['api']['auth']['version']
+auth_admin_uri = auth_uri_transform  identity_admin_endpoint.to_s, node['openstack']['compute']['api']['auth']['version']
 
 db_pass = get_password 'db', 'horizon'
 db_info = db 'dashboard'
